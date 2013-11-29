@@ -1,0 +1,52 @@
+
+<% if false %>
+<meta http-equiv="refresh" content="300" />
+<%= simple_format @post.to_yaml %>
+<p>
+  <b>created_at:</b>
+  <%=h @post.created_at %>
+</p>
+<% end %>
+
+<%= link_to 'Create Task', new_post_path %><br /><br />
+
+<table border=1 cellpadding=2>
+  <tr>
+    <th>Name</th>
+    <th>Worktype</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Hours</th>
+    <th>Notes</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  
+<% @posts.each do |post| %>
+  <tr class= "<%= post.name.gsub(' ','') %>">
+    <td><%= post.name %></td>
+    <td><%= post.worktype %></td>
+    <td><%= post.starttime %></td>
+    <td><%= post.endtime %></td>
+    <td><%= post.hours %></td>
+    <td><%= post.notes %></td>
+    <td><%= link_to 'Edit', edit_post_path(post) %></td>
+    <td><%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Create Task', new_post_path %>
+
+<br />
+<br />
+
+<%= render 'search' %>
+
+<p>
+  Download:
+  <%= link_to "CSV", request.parameters.merge( { :format => :csv } ) %>| 
+  <%= link_to "Excel", request.parameters.merge( { :format => :xls } ) %>
+</p>

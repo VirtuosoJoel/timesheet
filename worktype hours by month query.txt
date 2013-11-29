@@ -1,0 +1,1 @@
+totals = Hash.new(0);Post.where( "strftime('%m', created_at) == '07'" ).each {|p| totals[p.worktype]+=p.hours.to_f };totals

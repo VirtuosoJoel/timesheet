@@ -1,0 +1,22 @@
+
+<div style="float: right;
+z-index: 10;
+position: absolute;
+right: 0;
+top: 0;">
+
+<%= form_tag search_path, :method => "get" do %>
+  <table border=1>
+  <tr>
+  <th colspan="2">Filter Options:
+  <tr>
+  <td><%= label_tag 'name', "Name:" %>
+  <td ><%= select_tag "name", options_for_select( ['All'] + Post::ENGINEERNAMES, ( session[ :name ] ? session[ :name ] : 'All' ) ) -%>
+  <tr>
+  <td><%= label_tag 'date', 'Date:' %>
+  <td><%= select_tag 'date', options_for_select( (( Date.today-5 )..Date.today ), session[ :viewdate ] ), { 'style' => "width: 100%;" } %>
+  <tr><td colspan="2" align="center"><%= submit_tag "Search" %>
+  </table>
+<%- end %>
+
+</div>

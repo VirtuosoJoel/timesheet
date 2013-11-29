@@ -1,0 +1,83 @@
+<script language="javascript" type="text/javascript">
+
+function CalculateHours(){
+  var time1 = new Date();
+  var time2 = new Date();
+  time1.setHours( parseInt(post_starttime.value.split(':')[0]) );
+  time1.setMinutes( parseInt(post_starttime.value.split(':')[1]) );
+  time2.setHours( parseInt(post_endtime.value.split(':')[0]) );
+  time2.setMinutes( parseInt(post_endtime.value.split(':')[1]) );
+  var diff = new Date( time2 - time1 );
+  post_hours.value = TimeString(diff)
+}
+
+  function TimeString(date){
+    return date.getHours() + ':' + pad(date.getMinutes(), 2, 0)
+  }
+
+  function pad(n, width, z) {
+    z = z || '0';
+    n = n + '';
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n
+  }
+  
+</script>
+
+<div style="float: right;
+z-index: 10;
+position: fixed;
+right: 0;
+top: 0;">
+
+<p style="margin-right:5px;">All Worktypes refer to jobs not accounted for on ReDeTrack</p>
+  <table border=1 cellpadding=1>
+    <tr><th>WorkType<th>Example(s)
+     <% Post::WORKTYPES.each do |group, values|
+     values.each do |type|
+     %>
+        <tr><td><%= type %><td><%= Post::WORKTYPEEXAMPLES[ type ] %>
+     <% end; end %>
+</table>
+</div>
+
+<%= form_for(@post) do |post_form| %>
+  <% if @post.errors.any? %>
+  <div id="errorExplanation">
+    <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+    <ul>
+    <% @post.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+ 
+  <div class="field">
+    <%= post_form.label :name %><br />
+    <%= post_form.select :name, options_for_select(Post::ENGINEERNAMES, @post.name || session[ :name ] ) %>
+  </div>
+  <div class="field">
+    <%= post_form.label :worktype %><br />
+    <%= post_form.select :worktype, grouped_options_for_select( Post::WORKTYPES, @post.worktype ) %>
+  </div>
+  <div class="field">
+    <%= post_form.label :starttime %><br />  
+    <%= post_form.text_field :starttime, :value => @post.starttime || session[ :endtime ] %>
+  </div>
+  <div class="field">
+    <%= post_form.label :endtime %><br />  
+    <%= post_form.text_field :endtime %>
+  </div>
+  <div class="field">
+    <%= post_form.label :hours %><br />  
+    <%= post_form.text_field :hours %>
+    <button name="calculate" type="button" onclick="CalculateHours();">Calculate</button> 
+  </div>  
+  <div class="field">
+    <label for="post_notes">Notes</label><br />
+    <%= post_form.text_area :notes, :size => "50x5" %>
+  </div>
+  <div class="actions">
+    <%= post_form.submit "Save" %>
+  </div>
+<% end %>

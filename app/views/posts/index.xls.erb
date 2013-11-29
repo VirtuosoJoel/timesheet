@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/Row/REC-html40">
+  
+  <ss:Styles>
+  <Style ss:ID="s22"><NumberFormat ss:Format="dd/mm/yyyy"/></Style>
+  </ss:Styles>
+  
+  <Worksheet ss:Name="Sheet1">
+
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Name</Data></Cell>
+        <Cell><Data ss:Type="String">Worktype</Data></Cell>
+        <Cell><Data ss:Type="String">Start Time</Data></Cell>
+        <Cell><Data ss:Type="String">End Time</Data></Cell>
+        <Cell><Data ss:Type="String">Hours</Data></Cell>
+        <Cell><Data ss:Type="String">Notes</Data></Cell>
+        <Cell><Data ss:Type="String">Date</Data></Cell>
+      </Row>
+      
+    <% @posts.each do |post| %>
+        <Row>
+          <Cell><Data ss:Type="String"><%= post.name %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= post.worktype %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= post.starttime %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= post.endtime %></Data></Cell>
+          <Cell><Data ss:Type="Number"><%= post.hours %></Data></Cell>
+          <Cell><Data ss:Type="String"><%= post.notes %></Data></Cell>
+          <Cell ss:StyleID="s22"><Data ss:Type="DateTime"><%= post.created_at.to_date %></Data></Cell>
+        </Row>
+      <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

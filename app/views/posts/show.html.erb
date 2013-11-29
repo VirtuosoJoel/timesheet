@@ -1,0 +1,19 @@
+﻿<p id="notice"><%= notice %></p>
+ 
+<p>
+  <b>Worktype:</b>
+  <%= @post.worktype %>
+</p>
+ 
+<p>
+  <b>Hours:</b>
+  <%= @post.hours %>
+</p> 
+ 
+<p>
+  <b>Notes:</b>
+  <%= @post.content %>
+</p>
+  
+<%= link_to 'Edit Post', edit_post_path(@post) %> |
+<%= link_to 'Back to Posts', posts_path %> |

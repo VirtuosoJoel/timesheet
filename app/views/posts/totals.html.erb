@@ -1,0 +1,6 @@
+<table border=1 cellpadding=1>
+  <tr><th>WorkType<th>Total Hours
+   <% totals.each do |type, hours| %>
+      <tr><td><%= type %><td><%= '%.2f' % hours %>
+   <% end %>
+</table>

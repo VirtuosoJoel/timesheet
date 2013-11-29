@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= favicon_link_tag 'cent_star.gif' %>
+  <title>Centrex Operations Activity Tracker</title>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="container" >
+<h2>Centrex Operations Activity Tracker</h2>
+</div>
+<br />
+<br />
+<div class="content">
+    <%= yield %>
+</div>
+
+</body>
+</html>
